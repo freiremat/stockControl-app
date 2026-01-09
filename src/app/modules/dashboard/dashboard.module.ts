@@ -7,6 +7,8 @@ import { DASHBOARD_ROUTES } from './dashboard.routing';
 
 import { SidebarModule } from 'primeng/sidebar';
 import { ToolbarModule } from 'primeng/toolbar';
+import { ChartModule } from 'primeng/chart';
+
 
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -25,7 +27,8 @@ import { CookieService } from 'ngx-cookie-service';
     ButtonModule,
     ToolbarModule,
     CardModule,
-    ToastModule
+    ToastModule,
+    ChartModule
   ],
   providers: [MessageService, CookieService],
   declarations: [DashboardComponent]

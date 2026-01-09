@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { AuthRequest } from 'src/app/models/interfaces/user/AuthRequest';
@@ -25,7 +26,12 @@ export class HomeComponent implements OnInit {
     password: ['', Validators.required]
   })
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private cookieService: CookieService, private messageService: MessageService) { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private userService: UserService,
+    private cookieService: CookieService, 
+    private messageService: MessageService, 
+    private router: Router) { }
 
   ngOnInit() {
   }
@@ -39,6 +45,8 @@ export class HomeComponent implements OnInit {
               this.cookieService.set('USER_INFO', response?.token)
 
               this.loginForm.reset();
+              //navigate to route after logged in
+              this.router.navigate(['/dashboard'])
 
               this.messageService.add({
                 severity: 'success',
