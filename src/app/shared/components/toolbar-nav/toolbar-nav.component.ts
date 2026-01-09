@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-toolbar-nav',
   templateUrl: './toolbar-nav.component.html',
 
 })
-export class ToolbarNavComponent implements OnInit {
+export class ToolbarNavComponent {
 
-  constructor() { }
+  constructor(private cookie: CookieService, private router: Router) { }
 
-  ngOnInit() {
+  handleLogout(): void {
+    this.cookie.delete('USER_INFO');
+    this.router.navigate(['/home'])
   }
 
 }
