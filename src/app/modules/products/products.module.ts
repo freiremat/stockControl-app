@@ -21,9 +21,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { PRODUCTS_ROUTES } from './products.routing';
 import { ProductsHomeComponent } from './page/products-home/products-home.component';
+import { ProductsTableComponent } from './components/products-table/products-table.component';
+import { RippleModule } from "primeng/ripple";
 
 @NgModule({
-  declarations: [ProductsHomeComponent],
+  declarations: [ProductsHomeComponent, ProductsTableComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -31,7 +33,6 @@ import { ProductsHomeComponent } from './page/products-home/products-home.compon
     RouterModule.forChild(PRODUCTS_ROUTES),
     SharedModule,
     HttpClientModule,
-
     //primeng
     CardModule,
     ButtonModule,
@@ -44,8 +45,9 @@ import { ProductsHomeComponent } from './page/products-home/products-home.compon
     DynamicDialogModule,
     DropdownModule,
     ConfirmDialogModule,
-    TooltipModule
-  ],
+    TooltipModule,
+    RippleModule
+],
   providers: [
     DialogService,
     ConfirmationService
