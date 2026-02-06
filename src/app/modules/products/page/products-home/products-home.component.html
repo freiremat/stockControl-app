@@ -1,3 +1,6 @@
 <app-toolbar-nav />
 
-<app-products-table [products]="productsList" />
+<app-products-table
+  [products]="productsList"
+  (productEvent)="handleProductAction($event)"
+/>
