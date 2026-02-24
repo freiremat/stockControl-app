@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { Subject, takeLast, takeUntil } from 'rxjs';
 import { GetCategoriesResponse } from 'src/app/models/interfaces/categories/responses/GetCategoriesResponse';
 import { CategoriesService } from 'src/app/services/categories/categories.service';
+import { ProductsService } from 'src/app/services/products/products.service';
 
 @Component({
   selector: 'app-product-form',
@@ -28,7 +29,8 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     private categoriesService: CategoriesService,
     private formBuilder: FormBuilder,
     private messageService: MessageService,
-    private router: Router) { }
+    private router: Router,
+    private productsService: ProductsService) { }
 
   ngOnInit() {
     this.getAllCategories()
@@ -49,7 +51,30 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   }
 
   handleSubmitAddProduct(): void {
+    if (this.addProductForm?.value && this.addProductForm?.valid) {
+      const formValues = this.addProductForm.value;
+      const requestDatas = {
+        name: formValues.name as string,
+        price: formValues.price as string,
+        description: formValues.description as string,
+        category_id: formValues.category_id as string,
+        amount: Number(formValues.amount),
+      }
 
+      this.productsService.createProduct(requestDatas)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (response) => {
+            this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Produto criado com sucesso.', life: 2500 });
+          },
+          error: (err) => {
+            console.error('Error creating product:', err);
+            this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao criar produto', life: 2500 });
+          }
+        })
+    }
+
+    this.addProductForm.reset();
   }
 
 
