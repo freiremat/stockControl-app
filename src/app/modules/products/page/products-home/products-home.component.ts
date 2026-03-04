@@ -22,7 +22,7 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
     private productsService: ProductsService,
     private productsDataTransferService: ProductsDataTransferService,
     private router: Router,
-    private messaegeService: MessageService,
+    private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private dialogService: DialogService) { }
 
@@ -41,22 +41,25 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
   }
 
   getAPIProductsDatas() {
-    this.productsService.getAllProducts()
+    this.productsService
+      .getAllProducts()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
-          this.productsList = response;
+          if (response.length > 0) {
+            this.productsList = response;
+          }
         },
-        error: (error) => {
-          console.error('Error fetching products:', error);
-          this.messaegeService.add({
+        error: (err) => {
+          console.log(err);
+          this.messageService.add({
             severity: 'error',
             summary: 'Erro',
-            detail: 'Falha ao carregar produtos. Redirecionando para tela de dashboard.',
+            detail: 'Erro ao buscar produtos',
             life: 2500,
-          })
+          });
           this.router.navigate(['/dashboard']);
-        }
+        },
       });
   }
 
@@ -70,7 +73,7 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
         maximizable: true,
         data: {
           event: event,
-          productList: this.productsList,
+          productDatas: this.productsList,
         }
       })
       this.ref.onClose.pipe(takeUntil(this.destroy$)).subscribe({
@@ -101,7 +104,7 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
         ).subscribe({
           next: (response) => {
             if (response) {
-              this.messaegeService.add({
+              this.messageService.add({
                 severity: 'success',
                 summary: 'Sucesso',
                 detail: 'Produto removido com sucesso',
@@ -111,7 +114,7 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
               this.getAPIProductsDatas();
             }
           }, error: (err) => {
-            this.messaegeService.add({
+            this.messageService.add({
               severity: 'error',
               summary: 'Erro',
               detail: 'Erro ao remover produto',
