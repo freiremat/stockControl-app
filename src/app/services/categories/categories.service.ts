@@ -24,4 +24,12 @@ export class CategoriesService {
     return this.http.get<Array<GetCategoriesResponse>>(`${this.API_URL}/categories`, this.httpOptions);
   }
 
+  deleteCategory(request: { category_id: string }): Observable<void> {
+    return this.http.delete<void>(`${this.API_URL}/category/delete`, {
+      ...this.httpOptions,
+      params: {
+        category_id: request.category_id
+      },
+    });
+  }
 }
