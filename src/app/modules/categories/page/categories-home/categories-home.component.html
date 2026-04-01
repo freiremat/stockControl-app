@@ -2,4 +2,5 @@
 <app-categories-table
   [categories]="categoriesDatas"
   (deleteCategoryEvent)="handleDeleteCategoryAction($event)"
+  (categoryEvent)="handleEditCategoryAction($event)"
 />

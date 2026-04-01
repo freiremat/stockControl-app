@@ -23,6 +23,7 @@ import { ConfirmationService } from 'primeng/api';
 import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
 import { CategoriesHomeComponent } from './page/categories-home/categories-home.component';
 import { RippleModule } from "primeng/ripple";
+import { CategoryFormComponent } from './components/category-form/category-form.component';
 
 @NgModule({
   imports: [
@@ -47,7 +48,7 @@ import { RippleModule } from "primeng/ripple";
     TooltipModule,
     RippleModule
 ],
-  declarations: [CategoriesHomeComponent, CategoriesTableComponent],
+  declarations: [CategoriesHomeComponent, CategoriesTableComponent, CategoryFormComponent],
   providers: [DialogService, ConfirmationService]
 })
 export class CategoriesModule { }

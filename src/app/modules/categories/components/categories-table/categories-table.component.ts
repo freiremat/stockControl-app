@@ -14,7 +14,7 @@ export class CategoriesTableComponent {
 @Output() public deleteCategoryEvent = new EventEmitter<DeleteCategoryAction>();
 
 public categorySelected!: GetCategoriesResponse;
-public  addCategoryAction = CategoryEvent.ADD_CATEGORY_ACTION;
+public addCategoryAction = CategoryEvent.ADD_CATEGORY_ACTION;
 public editCategoryAction = CategoryEvent.EDIT_CATEGORY_ACTION;
 
   constructor() { }
@@ -22,6 +22,12 @@ public editCategoryAction = CategoryEvent.EDIT_CATEGORY_ACTION;
   handleDeleteCategory(category_id: string, category_name: string): void {
     if(category_id !== '' && category_name !== '') {
       this.deleteCategoryEvent.emit({category_id, category_name});
+    }
+  }
+
+  handleCategoryEvent(action: string, id?: string, categoryName?: string) :void {
+    if(action && action !== ''){
+      this.categoryEvent.emit({ action, id, categoryName });
     }
   }
 }
