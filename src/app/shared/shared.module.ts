@@ -7,10 +7,11 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToolbarNavComponent } from './components/toolbar-nav/toolbar-nav.component';
+import { ShortenPipe } from './pipes/shorten/shorten.pipe';
 
 
 @NgModule({
-  declarations: [ToolbarNavComponent],
+  declarations: [ToolbarNavComponent, ShortenPipe],
   imports: [
     CommonModule,
     FormsModule,
@@ -21,7 +22,7 @@ import { ToolbarNavComponent } from './components/toolbar-nav/toolbar-nav.compon
     CardModule,
     ButtonModule
   ],
-  exports: [ToolbarNavComponent],
+  exports: [ToolbarNavComponent, ShortenPipe],
   providers: [DialogService, CurrencyPipe]
 })
 
