@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -13,7 +13,10 @@ import { UserService } from 'src/app/services/user/user.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnDestroy {
+export class HomeComponent implements OnDestroy, AfterViewInit {
+@ViewChild('emailInput') public emailInputRef!: ElementRef;
+@ViewChild('passwordInput') public passwordInputRef!: ElementRef;
+
   private destroy$ = new Subject<void>();
 
   loginCard = true;
@@ -35,6 +38,13 @@ export class HomeComponent implements OnDestroy {
     private cookieService: CookieService,
     private messageService: MessageService,
     private router: Router) { }
+
+  ngAfterViewInit(): void {
+    this.emailInputRef.nativeElement.value = 'Seu email aqui';
+    this.passwordInputRef.nativeElement.value = 'Sua';
+
+    // console.log(this.emailInputRef.nativeElement);
+}
 
   onSubmitLoginForm(): void {
     if (this.loginForm.value && this.loginForm.valid) {
